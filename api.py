@@ -13,5 +13,5 @@ async def predict(request: Request):
     url = data.get("url")
     print(f"predict called with URL: {url}")
     return {
-        "winner": "chuck"
+        "prediction": "chuck"
     }
