@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+
+# VS Code settings (optional)
+.vscode/
+
+# MacOS system files (optional)
+.DS_Store
