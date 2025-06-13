@@ -41,7 +41,7 @@ def encode_game_input(game_input, le_input_players, le_input_decks):
     """
     encoded_input = []
     
-    for player, deck in game_input.dict().items():
+    for player, deck in game_input.items():
         player_encoded = le_input_players.transform([player])[0]
         deck_encoded = le_input_decks.transform([deck])[0]
         encoded_input.append([player_encoded, deck_encoded])
