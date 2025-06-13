@@ -2,7 +2,6 @@ import numpy as np
 import xgboost as xgb
 from preprocessing import encode_game_input
 
-# Variables to be used in the entire file scope
 model_player = None
 model_deck = None
 model_meta = None
@@ -64,7 +63,7 @@ def train_model(x_player, y_player, le_input_players_input, le_target_players_in
     model_meta = xgb.XGBClassifier(n_estimators=n_estimators, max_depth=max_depth, learning_rate=learning_rate, colsample_bytree=colsample_bytree, subsample=subsample)
     model_meta.fit(combined_features, y_player)
 
-    return model_meta, combined_features
+    return model_meta, model_player, model_deck
 
 
 def model_predict(game_input):
