@@ -16,6 +16,10 @@ app.include_router(train_router)
 def read_root():
     return {"message": "API is live"}
 
+@app.post("/predict2")
+async def predict2(request: Request):
+    return {"prediction": "Kakarot"}
+
 @app.post("/predict")
 async def predict(request: Request):
     data = await request.json()

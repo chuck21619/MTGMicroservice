@@ -75,8 +75,9 @@ def model_predict(game_input):
     player_probs = model_player.predict_proba(x_player_input)
     deck_probs = model_deck.predict_proba(x_deck_input)
 
-    allowed_players = set(game_input.keys())
-    allowed_decks = set(game_input.values())
+    allowed_players = {player for player, deck in game_input.items() if deck.lower() != 'none'}
+    allowed_decks = {deck for deck in game_input.values() if deck.lower() != 'none'}
+
 
     player_filtered_pred = post_filter_prediction(player_probs[0], allowed_players, le_target_players)
     deck_filtered_pred = post_filter_prediction(deck_probs[0], allowed_decks, le_target_decks)
