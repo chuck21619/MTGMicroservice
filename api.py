@@ -7,18 +7,18 @@ import pickle
 from train import router as train_router
 import model
 import binascii
+from predict2 import router as predict2_router
+from train2 import router as train2_router
 
 
 app = FastAPI()
 app.include_router(train_router)
+app.include_router(train2_router)
+app.include_router(predict2_router)
 
 @app.get("/")
 def read_root():
     return {"message": "API is live"}
-
-@app.post("/predict2")
-async def predict2(request: Request):
-    return {"prediction": "Kakarot"}
 
 @app.post("/predict")
 async def predict(request: Request):
