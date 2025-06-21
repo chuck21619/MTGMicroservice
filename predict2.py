@@ -25,7 +25,7 @@ async def predict2(request: Request):
     predicted_winner, preds = predict_winner(model, players, decks, game_input_dict)
     pred_probs = {players[i]: float(preds[i]) for i in range(len(players))}
     return {
-        "predicted_winner": predicted_winner,
+        "prediction": predicted_winner,
         "probabilities": pred_probs
     }
 
