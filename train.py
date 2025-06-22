@@ -11,7 +11,7 @@ router = APIRouter()
 async def train(request: Request):
     data = await request.json()
     url = data.get("url")
-    userID = 3
+    username = data.get("username")
     
     df = generate_dataset(url)
 
@@ -43,7 +43,7 @@ async def train(request: Request):
             le_target_players = %s,
             le_input_decks = %s,
             le_target_decks = %s
-        WHERE id = %s
+        WHERE username = %s
     """, (
         psycopg2.Binary(model_meta_bytes),
         psycopg2.Binary(model_player_bytes),
@@ -52,7 +52,7 @@ async def train(request: Request):
         psycopg2.Binary(le_target_players_bytes),
         psycopg2.Binary(le_input_decks_bytes),
         psycopg2.Binary(le_target_decks_bytes),
-        userID
+        username
     ))
 
 

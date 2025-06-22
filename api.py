@@ -23,11 +23,9 @@ def read_root():
 @app.post("/predict")
 async def predict(request: Request):
     data = await request.json()
+    username = data.get("username")
     selections = data.get("selections", [])
     game_input_dict = {s['player']: s['deck'] for s in selections}
-    print(game_input_dict)
-
-    userID = 3
 
     #connecting to database
     connection = psycopg2.connect("postgresql://postgres:notastupidpassword@localhost:5432/my_local_db?sslmode=disable")
@@ -39,8 +37,8 @@ async def predict(request: Request):
             le_input_players, le_target_players, 
             le_input_decks, le_target_decks 
         FROM users 
-        WHERE id = %s
-    """, (userID,))
+        WHERE username = %s
+    """, (username,))
 
     row = current.fetchone()
     if row:

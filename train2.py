@@ -8,7 +8,6 @@ import psycopg2
 import pickle
 import os
 
-userID = 3 
 router = APIRouter()
 num_slots = 4
 
@@ -16,6 +15,7 @@ num_slots = 4
 async def train2(request: Request):
     data = await request.json()
     url = data.get("url")
+    username = data.get("username")
     response = requests.get(url)
     if response.status_code != 200:
         return {"error": f"Failed to fetch CSV. Status code: {response.status_code}"}
@@ -134,12 +134,12 @@ async def train2(request: Request):
             tf_model = %s,
             tf_players = %s,
             tf_decks = %s
-        WHERE id = %s
+        WHERE username = %s
     """, (
         psycopg2.Binary(model_bytes),
         psycopg2.Binary(players_bytes),
         psycopg2.Binary(decks_bytes),
-        userID
+        username
     ))
 
     conn.commit()
