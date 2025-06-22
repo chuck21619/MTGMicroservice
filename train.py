@@ -4,6 +4,11 @@ from data_generation import *
 from preprocessing import *
 from model import *
 import pickle
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # loads from .env if present
+connection_string = os.getenv("DATABASE_URL")
 
 router = APIRouter()
 
@@ -21,7 +26,7 @@ async def train(request: Request):
 
     print("connecting to database")
     #connecting to database
-    connection = psycopg2.connect("postgresql://postgres:notastupidpassword@localhost:5432/my_local_db?sslmode=disable")
+    connection = psycopg2.connect(connection_string)
     current = connection.cursor()
 
     print("saving model to database")

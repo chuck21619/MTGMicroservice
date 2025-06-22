@@ -11,3 +11,5 @@ venv/
 
 # MacOS system files (optional)
 .DS_Store
+
+.env

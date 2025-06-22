@@ -5,6 +5,11 @@ import tensorflow as tf
 import pickle
 import numpy as np
 import os
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # loads from .env if present
+connection_string = os.getenv("DATABASE_URL")
 
 router = APIRouter()
 num_slots = 4
@@ -30,7 +35,7 @@ async def predict2(request: Request):
     }
 
 def load_model_from_db(username: str):
-    conn = psycopg2.connect("postgresql://postgres:notastupidpassword@localhost:5432/my_local_db?sslmode=disable")
+    conn = psycopg2.connect(connection_string)
     cur = conn.cursor()
     cur.execute("SELECT tf_model, tf_players, tf_decks FROM users WHERE username = %s", (username,))
     row = cur.fetchone()

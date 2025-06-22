@@ -7,6 +7,10 @@ import tempfile
 import psycopg2
 import pickle
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # loads from .env if present
+connection_string = os.getenv("DATABASE_URL")
 
 router = APIRouter()
 num_slots = 4
@@ -126,7 +130,7 @@ async def train2(request: Request):
     decks_bytes = pickle.dumps(decks)
 
     # Save to PostgreSQL
-    conn = psycopg2.connect("postgresql://postgres:notastupidpassword@localhost:5432/my_local_db?sslmode=disable")
+    conn = psycopg2.connect(connection_string)
     cur = conn.cursor()
 
     cur.execute("""

@@ -9,7 +9,11 @@ import model
 import binascii
 from predict2 import router as predict2_router
 from train2 import router as train2_router
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # loads from .env if present
+connection_string = os.getenv("DATABASE_URL")
 
 app = FastAPI()
 app.include_router(train_router)
@@ -28,7 +32,7 @@ async def predict(request: Request):
     game_input_dict = {s['player']: s['deck'] for s in selections}
 
     #connecting to database
-    connection = psycopg2.connect("postgresql://postgres:notastupidpassword@localhost:5432/my_local_db?sslmode=disable")
+    connection = psycopg2.connect(connection_string)
     current = connection.cursor()
 
     # get models and encoders from database

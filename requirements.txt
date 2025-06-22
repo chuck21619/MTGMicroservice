@@ -6,3 +6,4 @@ xgboost
 psycopg2
 requests
 tensorflow
+python-dotenv
